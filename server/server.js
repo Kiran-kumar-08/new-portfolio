@@ -1,51 +1,40 @@
-require('dotenv').config({ path: './.env' }); // Ensure .env is loaded from correct path
+// server.js
 const express = require('express');
-const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const connectDB = require('./config/db');
+const { configureCloudinary } = require('./config/cloudinary'); // <-- CORRECTED IMPORT
 const cors = require('cors');
 
+// Load environment variables from .env file
+dotenv.config();
+
+// Connect to the database
+connectDB();
+
 const app = express();
+
+// Initialize Cloudinary configuration
+configureCloudinary(); // <-- CORRECTED FUNCTION CALL
+
+// Middleware
+app.use(express.json()); // For parsing application/json bodies
+app.use(cors()); // Enable CORS for all routes (consider restricting in production)
+
+// Routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/certificates', require('./routes/certificateRoutes'));
+app.use('/api/contact', require('./routes/contactRoutes'));
+
+// Basic route for testing server status
+app.get('/', (req, res) => {
+    res.send('Portfolio API is running...');
+});
+
+// Centralized Error Handling Middleware (should be the last middleware)
+app.use(require('./middleware/errorHandler'));
+
 const PORT = process.env.PORT || 5000;
 
-// --- Debug: Print loaded ENV variables ---
-console.log("✅ Loaded ENV:");
-console.log("PORT:", PORT);
-console.log("CLIENT_URL:", process.env.CLIENT_URL);
-console.log("MONGO_URI:", process.env.MONGO_URI ? "Found" : "Missing");
-
-// --- Middleware ---
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// ✅ TEMP CORS Setup: Open to all origins for testing
-app.use(cors()); // Uncomment during testing
-/*
-app.use(cors({
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-}));
-*/
-
-// --- Debug: Log all incoming requests
-app.use((req, res, next) => {
-    console.log(`[${req.method}] ${req.url}`);
-    next();
-});
-
-// --- Database Connection ---
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ MongoDB Connected Successfully!'))
-    .catch(err => {
-        console.error('❌ MongoDB Connection Error:', err);
-        process.exit(1); // Exit process with failure
-    });
-
-// --- Routes ---
-app.get('/', (req, res) => {
-    res.status(200).send('🚀 Portfolio Backend API is running!');
-});
-
-// --- Start the Server ---
 app.listen(PORT, () => {
-    console.log(`✅ Server running on port ${PORT}`);
-    console.log(`🌐 Access backend at: http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

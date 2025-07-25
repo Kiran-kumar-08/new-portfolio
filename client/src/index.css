@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* You can add any global custom CSS here if needed,
+   but prefer to use Tailwind utilities or components */
+
+/* Example: Basic body styling */
+body {
+  @apply bg-gray-50 text-gray-800 font-sans antialiased;
+}
+
+/* For dark mode (if you implement it later) */
+.dark body {
+  @apply bg-darkBg text-lightText;
+}
+
+/* Scroll behavior for smooth scrolling between sections */
+html {
+  scroll-behavior: smooth;
+}

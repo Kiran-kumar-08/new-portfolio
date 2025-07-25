@@ -1,5 +1,23 @@
+# Node modules
+node_modules/
+client/node_modules/    # Exclude frontend node_modules
+server/node_modules/    # Exclude backend node_modules
+
+# dotenv environment variables
+.env                    # Exclude a root .env if it exists
+client/.env             # Exclude client's .env if used (Vite often uses .env.local)
+client/.env.local       # Exclude client's local development .env
+server/.env             # Exclude backend's .env (CRITICAL for secrets)
+
+# Build outputs
+dist/                   # Vite's default build output for client
+dist-ssr/
+build/                  # Common build output name
+client/build/           # Specific client build folder
+server/build/           # Specific server build folder
+.vite/                  # Vite cache directory
+
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,16 +25,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
 # Editor directories and files
 .vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+!.vscode/extensions.json # Keep extensions.json to share recommended extensions
+.idea/                  # IntelliJ IDEA projects
+.DS_Store               # macOS specific file
 *.suo
 *.ntvs*
 *.njsproj

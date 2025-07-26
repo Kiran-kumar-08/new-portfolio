@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 const API = axios.create({
   baseURL: process.env.NODE_ENV === 'production'
     ? 'YOUR_PRODUCTION_BACKEND_URL' // e.g., 'https://api.yourportfolio.com/api'
-    : 'http://localhost:5001/api', // Your backend development URL
+    : 'https://new-portfolio-yl2y.onrender.com/api', // Your backend development URL
 });
 
 // Interceptor to add token to requests

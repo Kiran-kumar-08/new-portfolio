@@ -1,6 +1,6 @@
-// client/src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import Home from './pages/Home';
@@ -11,25 +11,44 @@ import Contact from './pages/Contact';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AddEditCertificate from './pages/AddEditCertificate';
-// Assuming you've removed AddEditProduct if that was part of your earlier cleanup
-// import AddEditProduct from './pages/AddEditProduct'; // Uncomment if you still have this page
-
 import PrivateRoute from './components/auth/PrivateRoute';
-import { AuthProvider } from './context/AuthContext';
-
-// <-- NEW IMPORT FOR ANIMATED BACKGROUND -->
 import AnimatedBackground from './components/common/AnimatedBackground';
+import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { FaRegFilePdf } from 'react-icons/fa';
+
+// 🌟 Floating Resume Button
+const FloatingResumeButton = () => {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
+  if (!isHome) return null;
+
+  return (
+    <a
+      href="/Kiran_Resume.pdf"
+      download
+      title="Download Resume"
+      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-red-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-red-700 transition-all duration-300 animate-pulse"
+    >
+      <FaRegFilePdf className="text-lg" />
+      <span className="hidden md:inline text-sm font-medium">Resume</span>
+    </a>
+  );
+};
 
 function App() {
   return (
     <Router>
       <AuthProvider>
-        {/* <-- MAIN APP CONTAINER - ADDED relative AND REMOVED dark: classes --> */}
-        <div className="relative flex flex-col min-h-screen bg-gray-50 text-gray-800">
-          {/* <-- ANIMATED BACKGROUND COMPONENT - PLACE IT HERE --> */}
+        <ThemeProvider>
+          {/* ThunderstormBackground needs to be outside the main content wrapper
+              and positioned absolutely to cover the whole screen behind everything. */}
           <AnimatedBackground />
 
-          {/* <-- CONTENT WRAPPER - ADDED relative AND z-10 --> */}
+
+          {/* This div acts as the main container for all your visible content,
+              positioned relatively and ensuring it sits above the background. */}
           <div className="relative z-10 flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow">
@@ -41,20 +60,19 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
 
-                {/* Protected Admin Routes */}
+                {/* Nested Routes for Private Routes */}
                 <Route path="/admin" element={<PrivateRoute />}>
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  <Route path="/admin/certificates/add" element={<AddEditCertificate />} />
-                  <Route path="/admin/certificates/edit/:id" element={<AddEditCertificate />} />
-                  {/* Uncomment if you still have AddEditProduct */}
-                  {/* <Route path="/admin/products/add" element={<AddEditProduct />} /> */}
-                  {/* <Route path="/admin/products/edit/:id" element={<AddEditProduct />} /> */}
+                  <Route index element={<AdminDashboard />} /> {/* Use index for default child route */}
+                  <Route path="certificates/add" element={<AddEditCertificate />} />
+                  <Route path="certificates/edit/:id" element={<AddEditCertificate />} />
                 </Route>
               </Routes>
             </main>
             <Footer />
           </div>
-        </div>
+
+          <FloatingResumeButton />
+        </ThemeProvider>
       </AuthProvider>
     </Router>
   );

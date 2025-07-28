@@ -1,22 +1,37 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Scan all JS, JSX, TS, TSX files in src/
-    "./public/index.html",      // Also scan your public HTML file
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./public/index.html",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
-      // You can extend Tailwind's default theme here
-      // For example, custom colors, fonts, etc.
       colors: {
-        primary: '#3B82F6', // Example primary blue
-        secondary: '#6B7280', // Example secondary gray
-        darkBg: '#1A202C', // Dark background for classic modern feel
-        lightText: '#E2E8F0', // Light text on dark backgrounds
+        primary: '#3B82F6',
+        secondary: '#6B7280',
+        darkBg: '#1A202C',
+        lightText: '#E2E8F0',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'], // Or any other modern sans-serif font
-        serif: ['Merriweather', 'serif'], // Or a classic serif for body text
+        sans: ['Inter', 'sans-serif'],  
+        serif: ['Merriweather', 'serif'],
+      },
+      animation: {
+        gradient: "gradient 15s ease infinite",
+      },
+      keyframes: {
+        gradient: {
+          "0%, 100%": {
+            backgroundPosition: "0% 50%",
+          },
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+        },
+      },
+      backgroundSize: {
+        animate: "400% 400%",
       },
     },
   },

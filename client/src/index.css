@@ -19,3 +19,41 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Neon button animation */
+@keyframes neon-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px #ff3c3c, 0 0 16px #ff3c3c, 0 0 24px #ff3c3c;
+  }
+  50% {
+    box-shadow: 0 0 12px #ff3c3c, 0 0 20px #ff3c3c, 0 0 28px #ff3c3c;
+  }
+}
+
+.neon-button {
+  animation: neon-glow 1.6s infinite alternate;
+}
+
+/* 🔥 Gradient background animation */
+.bg-animate {
+  background-size: 400% 400%;
+}
+/* Add this to your index.css */
+
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-bg {
+  background: linear-gradient(-45deg, #1a1a40, #3c096c, #5a189a, #9d4edd);
+  background-size: 400% 400%;
+  animation: gradientBackground 15s ease infinite;
+}

@@ -1,0 +1,22 @@
+.aurora-glow {
+    position: absolute;
+    inset: 0;
+    z-index: -20;
+    background: radial-gradient(circle at 30% 30%, #00ffe7 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, #ad00ff 0%, transparent 50%);
+    filter: blur(120px);
+    animation: auroraShift 12s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  
+  @keyframes auroraShift {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-30px) scale(1.1);
+      opacity: 0.8;
+    }
+  }
+  

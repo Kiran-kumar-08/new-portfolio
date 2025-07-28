@@ -1,7 +1,7 @@
 // client/src/pages/Home.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import profilePic from '/Users/apple/Desktop/my-app2/client/public/face copy.jpeg'; // ✅ Import your photo
+
 
 const Home = () => {
   return (

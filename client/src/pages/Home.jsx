@@ -35,7 +35,7 @@ const Home = () => {
       {/* Right Side: Profile Image */}
 <div className="mb-10 md:mb-0 md:ml-16 animate-fade-in-up">
   <img
-    src="/face copy.jpeg"  // ✅ Use this path (if inside public/)
+    src="https://res.cloudinary.com/dmmprl5sc/image/upload/v1753721425/face_vfk0bn.jpg"  // ✅ Use this path (if inside public/)
     alt="Kiran Kumar"
     className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-blue-500 shadow-xl hover:scale-105 transition-transform duration-300"
   />
